@@ -134,4 +134,4 @@ class NdbObjectType(ObjectType):
 
     @classmethod
     def resolve_id(cls, entity, info):
-        return entity.key.urlsafe()
+        return six.ensure_str(entity.key.urlsafe())

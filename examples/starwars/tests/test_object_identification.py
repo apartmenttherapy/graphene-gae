@@ -1,5 +1,7 @@
 from tests.base_test import BaseTest
 
+import six
+
 from google.appengine.ext import ndb
 
 from graphql_relay import to_global_id
@@ -26,7 +28,7 @@ class TestStarWarsObjectIdentification(BaseTest):
           '''
         expected = {
             'rebels': {
-                'id': to_global_id('Faction', ndb.Key('Faction', 'rebels').urlsafe()),
+                'id': to_global_id('Faction', six.ensure_str(ndb.Key('Faction', 'rebels').urlsafe())),
                 'name': 'Alliance to Restore the Republic'
             }
         }
@@ -35,7 +37,7 @@ class TestStarWarsObjectIdentification(BaseTest):
         self.assertDictEqual(result.data, expected)
 
     def test_correctly_refetches_rebels(self):
-        rebels_key = to_global_id('Faction', ndb.Key('Faction', 'rebels').urlsafe())
+        rebels_key = to_global_id('Faction', six.ensure_str(ndb.Key('Faction', 'rebels').urlsafe()))
         query = '''
             query RebelsRefetchQuery {
               node(id: "%s") {
@@ -58,7 +60,7 @@ class TestStarWarsObjectIdentification(BaseTest):
         self.assertDictEqual(result.data, expected)
 
     def test_correctly_fetches_id_name_empire(self):
-        empire_key = to_global_id('Faction', ndb.Key('Faction', 'empire').urlsafe())
+        empire_key = to_global_id('Faction', six.ensure_str(ndb.Key('Faction', 'empire').urlsafe()))
         query = '''
           query EmpireQuery {
             empire {
@@ -78,7 +80,7 @@ class TestStarWarsObjectIdentification(BaseTest):
         self.assertDictEqual(result.data, expected)
 
     def test_correctly_refetches_id_name_empire(self):
-        empire_key = to_global_id('Faction', ndb.Key('Faction', 'empire').urlsafe())
+        empire_key = to_global_id('Faction', six.ensure_str(ndb.Key('Faction', 'empire').urlsafe()))
         query = '''
             query EmpireRefetchQuery {
               node(id: "%s") {

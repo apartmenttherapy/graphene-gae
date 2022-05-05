@@ -2,6 +2,7 @@ import webapp2
 from tests.base_test import BaseTest
 
 import json
+import six
 import webtest
 import graphene
 from graphene import relay
@@ -217,16 +218,15 @@ class TestGraphQLHandler(BaseTest):
         response = self.app.post('/graphql?pretty=true', params=json.dumps(dict(
             query='query helloYou { greet(who: "You") }'
         )))
-        self.assertEqual(response.body, '{\n  "data": {\n    "greet": "Hello You!"\n  }\n}')
+        self.assertEqual(six.ensure_str(response.body), '{\n  "data": {\n    "greet": "Hello You!"\n  }\n}')
 
     def testPOST_override_pretty_via_post_param(self):
         response = self.app.post('/graphql', params=json.dumps(dict(
             query='query helloYou { greet(who: "You") }',
             pretty=True
         )))
-        self.assertEqual(response.body, '{\n  "data": {\n    "greet": "Hello You!"\n  }\n}')
+        self.assertEqual(six.ensure_str(response.body), '{\n  "data": {\n    "greet": "Hello You!"\n  }\n}')
 
     def testPOST_stringBody_readsQueryFromBodyAndRestFromGET(self):
         response = self.app.post('/graphql?pretty=True', params='query helloYou { greet(who: "You") }')
-        self.assertEqual(response.body, '{\n  "data": {\n    "greet": "Hello You!"\n  }\n}')
-
+        self.assertEqual(six.ensure_str(response.body), '{\n  "data": {\n    "greet": "Hello You!"\n  }\n}')

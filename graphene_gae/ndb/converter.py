@@ -1,6 +1,7 @@
 from collections import namedtuple
 
 import inflect
+import six
 
 from google.appengine.ext import ndb
 
@@ -24,7 +25,7 @@ def rreplace(s, old, new, occurrence):
 
 
 def convert_ndb_scalar_property(graphene_type, ndb_prop, registry=None, **kwargs):
-    kwargs['description'] = "%s %s property" % (ndb_prop._name, graphene_type)
+    kwargs['description'] = "%s %s property" % (six.ensure_str(ndb_prop._name or ""), graphene_type)
     _type = graphene_type
 
     if ndb_prop._repeated:
@@ -53,15 +54,15 @@ def convert_ndb_float_property(ndb_prop, registry=None):
 
 
 def convert_ndb_json_property(ndb_prop, registry=None):
-    return Field(JSONString, description=ndb_prop._name)
+    return Field(JSONString, description=six.ensure_str(ndb_prop._name or ""))
 
 
 def convert_ndb_time_property(ndb_prop, registry=None):
-    return Field(Time, description=ndb_prop._name)
+    return Field(Time, description=six.ensure_str(ndb_prop._name or ""))
 
 
 def convert_ndb_datetime_property(ndb_prop, registry=None):
-    return Field(DateTime, description=ndb_prop._name)
+    return Field(DateTime, description=six.ensure_str(ndb_prop._name or ""))
 
 
 def convert_ndb_key_property(ndb_key_prop, registry=None):

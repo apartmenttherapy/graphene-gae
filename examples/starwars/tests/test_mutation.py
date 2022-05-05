@@ -1,5 +1,7 @@
 from tests.base_test import BaseTest
 
+import six
+
 from google.appengine.ext import ndb
 
 from graphql_relay import to_global_id
@@ -92,7 +94,7 @@ class TestStarWarsMutation(BaseTest):
         new_ship = ship_in_db[0]
         self.assertEqual(new_ship.name, 'XYZWing')
 
-        expected['introduceShip']['ship']['id'] = to_global_id('Ship', new_ship.key.urlsafe())
+        expected['introduceShip']['ship']['id'] = to_global_id('Ship', six.ensure_str(new_ship.key.urlsafe()))
 
         self.assertFalse(result.errors, msg=str(result.errors))
         self.assertDictEqual(result.data, expected)

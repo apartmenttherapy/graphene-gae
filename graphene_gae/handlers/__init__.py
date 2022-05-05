@@ -78,7 +78,7 @@ class GraphQLHandler(webapp2.RequestHandler):
 
         request_data.update(dict(self.request.GET))
 
-        query = request_data.get('query', self.request.body)
+        query = six.ensure_str(request_data.get('query', self.request.body))
         if not query:
             webapp2.abort(400, "Query is empty.")
 

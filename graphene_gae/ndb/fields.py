@@ -39,7 +39,7 @@ def generate_edges_page(ndb_iter, page_size, keys_only, edge_type):
             # entity is actualy an ndb.Key and we need to create an empty entity to hold it
             entity = edge_type._meta.fields['node']._type._meta.model(key=entity)
 
-        edges.append(edge_type(node=entity, cursor=ndb_iter.cursor_after().urlsafe()))
+        edges.append(edge_type(node=entity, cursor=six.ensure_str(ndb_iter.cursor_after().urlsafe())))
 
     return edges
 
@@ -79,7 +79,7 @@ def connection_from_ndb_query(query, args=None, connection_type=None, edge_type=
             break
 
     try:
-        end_cursor = ndb_iter.cursor_after().urlsafe()
+        end_cursor = six.ensure_str(ndb_iter.cursor_after().urlsafe())
     except BadArgumentError:
         end_cursor = None
 
@@ -87,7 +87,7 @@ def connection_from_ndb_query(query, args=None, connection_type=None, edge_type=
     return connection_type(
         edges=edges,
         page_info=pageinfo_type(
-            start_cursor=start_cursor.urlsafe() if start_cursor else '',
+            start_cursor=six.ensure_str(start_cursor.urlsafe()) if start_cursor else '',
             end_cursor=end_cursor,
             has_previous_page=has_previous_page,
             has_next_page=ndb_iter.has_next()
@@ -213,9 +213,9 @@ class NdbKeyStringField(Field):
             return None
 
         if isinstance(key_value, list):
-            return [to_global_id(self.__graphql_type_name, k.urlsafe()) for k in key_value] if is_global_id else [k.id() for k in key_value]
+            return [to_global_id(self.__graphql_type_name, six.ensure_str(k.urlsafe())) for k in key_value] if is_global_id else [k.id() for k in key_value]
 
-        return to_global_id(self.__graphql_type_name, key_value.urlsafe()) if is_global_id else key_value.id()
+        return to_global_id(self.__graphql_type_name, six.ensure_str(key_value.urlsafe())) if is_global_id else key_value.id()
 
     def get_resolver(self, parent_resolver):
         return self.resolve_key_to_string
