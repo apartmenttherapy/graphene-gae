@@ -34,7 +34,7 @@ class TestNDBConverter(BaseTest):
             prop._code_name = "my_prop"
             convert_ndb_property(prop)
 
-        self.assertTrue("Don't know how to convert" in context.exception.message, msg=context.exception.message)
+        self.assertIn("Don't know how to convert", str(context.exception), msg=str(context.exception))
 
     @mock.patch('graphene_gae.ndb.converter.converters')
     def testNoneResult_raisesException(self, patch_convert):
@@ -46,7 +46,7 @@ class TestNDBConverter(BaseTest):
             convert_ndb_property(prop)
 
         expected_message = 'Failed to convert NDB property to a GraphQL field my_prop (StringProperty())'
-        self.assertTrue(expected_message in context.exception.message, msg=context.exception.message)
+        self.assertIn(expected_message, str(context.exception), msg=str(context.exception))
 
     def testStringProperty_shouldConvertToString(self):
         self.__assert_conversion(ndb.StringProperty, graphene.String)

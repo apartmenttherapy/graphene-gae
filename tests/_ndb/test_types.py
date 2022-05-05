@@ -64,7 +64,7 @@ class TestNDBTypes(BaseTest):
             class Character1(NdbObjectType):
                 pass
 
-        assert 'model in the Meta' in str(context.exception.message)
+        assert 'model in the Meta' in str(context.exception)
 
     def testNdbObjectType_should_raise_if_model_is_invalid(self):
         with self.assertRaises(Exception) as context:
@@ -72,7 +72,7 @@ class TestNDBTypes(BaseTest):
                 class Meta:
                     model = 1
 
-        assert 'not an NDB model' in str(context.exception.message)
+        assert 'not an NDB model' in str(context.exception)
 
     # def testNdbObjectType_keyProperty_kindDoesntExist_raisesException(self):
     #     with self.assertRaises(Exception) as context:
