@@ -23,7 +23,7 @@ class GraphQLHandler(webapp2.RequestHandler):
             webapp2.abort(500, detail='GraphQL Schema is missing.')
 
         query, operation_name, variables, pretty_override = self._get_graphql_params()
-        pretty = pretty if not pretty_override else pretty_override
+        pretty = pretty or pretty_override
 
         result = schema.execute(query,
                                 operation_name=operation_name,
