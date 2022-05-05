@@ -138,7 +138,7 @@ class NdbConnectionField(ConnectionField):
             context=info.context
         )
 
-    def get_resolver(self, parent_resolver):
+    def wrap_resolve(self, parent_resolver):
         return partial(
             self.connection_resolver, parent_resolver, self.type, self.model, self.transform_edges
         )
@@ -217,7 +217,7 @@ class NdbKeyStringField(Field):
 
         return to_global_id(self.__graphql_type_name, six.ensure_str(key_value.urlsafe())) if is_global_id else key_value.id()
 
-    def get_resolver(self, parent_resolver):
+    def wrap_resolve(self, parent_resolver):
         return self.resolve_key_to_string
 
 
@@ -247,7 +247,7 @@ class NdbKeyReferenceField(Field):
 
         return key_value.get()
 
-    def get_resolver(self, parent_resolver):
+    def wrap_resolve(self, parent_resolver):
         return self.resolve_key_reference
 
 
