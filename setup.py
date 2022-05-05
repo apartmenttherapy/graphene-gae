@@ -46,19 +46,11 @@ with open('HISTORY.rst') as history_file:
 
 
 requirements = [
+    'appengine-python-standard>=1.0',
     'six>=1.10.0',
     'inflect==0.2.5',
-    'graphene>=2.0,<3',
+    'graphene>=3.0',
     'iso8601'
-]
-
-test_requirements = [
-    'PyYAML==3.11',
-    'webapp2==2.5.2',
-    'webob==1.2.3',
-    'WebTest==2.0.11',
-    'mock==2.0.0',
-    'nose'
 ]
 
 setup(
@@ -85,6 +77,4 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.4",
     ],
-    test_suite='discover_tests',
-    tests_require=test_requirements,
 )

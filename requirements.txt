@@ -1,11 +1,20 @@
 pip
 setuptools
+wheel
 
-wheel==0.23.0
 tox
 coverage
 flake8
-Sphinx==1.5.2
+Sphinx
 
-PyYAML==3.11
-graphene>=2.0.dev
+PyYAML==5.4
+graphene>=3.0
+appengine-python-standard>=1.0
+six>=1.10.0
+inflect==0.2.5
+iso8601
+
+webapp2==3.0.0b1
+webob>=1.2.3
+WebTest==3.0.0
+nose

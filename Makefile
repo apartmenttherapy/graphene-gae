@@ -1,9 +1,3 @@
-ifndef GOOGLE_APPENGINE
-	export GOOGLE_APPENGINE:=/usr/local/google_appengine
-endif
-
-export PATH:=$(PATH):$(GOOGLE_APPENGINE)
-export PYTHONPATH:=$(PYTHONPATH):${GOOGLE_APPENGINE}
 
 .PHONY: clean-pyc clean-build docs clean
 
@@ -79,4 +73,4 @@ dist: clean
 	ls -l dist
 
 install: clean
-	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py install
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python -m pip install -r requirements.txt
