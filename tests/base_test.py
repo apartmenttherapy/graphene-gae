@@ -6,7 +6,6 @@ import unittest
 from google.appengine.ext import testbed
 from google.appengine.datastore import datastore_stub_util
 from google.appengine.ext import ndb
-from google.appengine.ext.cloudstorage import cloudstorage_stub
 
 
 # noinspection PyProtectedMemberDisneyStoreAvailability
@@ -35,7 +34,6 @@ class BaseTest(unittest.TestCase):
         self.testbed.init_memcache_stub()
         self.testbed.init_taskqueue_stub(root_path=root_path)
         self.testbed.init_urlfetch_stub()
-        self.storage = cloudstorage_stub.CloudStorageStub(self.testbed.get_stub('blobstore').storage)
         self.testbed.init_mail_stub()
         self.testbed.init_user_stub()
         self.taskqueue_stub = self.testbed.get_stub(testbed.TASKQUEUE_SERVICE_NAME)
