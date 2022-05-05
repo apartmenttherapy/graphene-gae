@@ -359,4 +359,4 @@ class TestNDBTypesRelay(BaseTest):
         reader = readers[0]['node']
 
         self.assertLength(reader.keys(), 4)
-        self.assertEquals(reader['ndbId'], str(alive_reader_key.id()))
+        self.assertEqual(reader['ndbId'], str(alive_reader_key.id()))
