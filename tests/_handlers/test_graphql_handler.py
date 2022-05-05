@@ -5,7 +5,7 @@ import json
 import webtest
 import graphene
 from graphene import relay
-from graphene_gae.webapp2 import graphql_application, GraphQLHandler
+from graphene_gae.handlers import graphql_application, GraphQLHandler
 
 __author__ = 'ekampf'
 
