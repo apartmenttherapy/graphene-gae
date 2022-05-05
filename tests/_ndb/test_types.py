@@ -196,7 +196,7 @@ class TestNDBTypes(BaseTest):
 
         for article in result.data['articles']:
             self.assertLength(article.keys(), 1)
-            self.assertEqual(article.keys()[0], 'headline')
+            self.assertEqual(list(article.keys())[0], 'headline')
 
     def testQuery_repeatedProperty(self):
         keywords = ["a", "b", "c"]
