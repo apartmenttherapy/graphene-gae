@@ -45,10 +45,10 @@ lint:
 	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && flake8 graphene_gae tests
 
 test:
-	PYTHONPATH=$PYTHONPATH:.venv:. . .venv/bin/activate && python -m unittest discover .
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python -m unittest discover .
 
 test-all:
-	PYTHONPATH=$PYTHONPATH:.venv:. . .venv/bin/activate && tox
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && tox
 
 coverage:
 	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && coverage run --source graphene_gae setup.py test
