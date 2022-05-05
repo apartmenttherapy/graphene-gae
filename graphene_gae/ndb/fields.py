@@ -6,7 +6,7 @@ from google.appengine.ext.db import BadArgumentError, Timeout
 from google.appengine.runtime import DeadlineExceededError
 
 from graphql_relay import to_global_id
-from graphql_relay.connection.connectiontypes import Edge
+from graphql_relay.connection.connection import Edge
 from graphene import Argument, Boolean, Int, String, Field, List, NonNull, Dynamic
 from graphene.relay import Connection
 from graphene.relay.connection import PageInfo, ConnectionField
