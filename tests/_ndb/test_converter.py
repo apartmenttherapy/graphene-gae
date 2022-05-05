@@ -45,7 +45,7 @@ class TestNDBConverter(BaseTest):
             prop._code_name = "my_prop"
             convert_ndb_property(prop)
 
-        expected_message = 'Failed to convert NDB propeerty to a GraphQL field my_prop (StringProperty())'
+        expected_message = 'Failed to convert NDB property to a GraphQL field my_prop (StringProperty())'
         self.assertTrue(expected_message in context.exception.message, msg=context.exception.message)
 
     def testStringProperty_shouldConvertToString(self):

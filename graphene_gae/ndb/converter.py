@@ -64,7 +64,7 @@ def convert_ndb_datetime_property(ndb_prop, registry=None):
     return Field(DateTime, description=ndb_prop._name)
 
 
-def convert_ndb_key_propety(ndb_key_prop, registry=None):
+def convert_ndb_key_property(ndb_key_prop, registry=None):
     """
     Two conventions for handling KeyProperties:
     #1.
@@ -140,7 +140,7 @@ converters = {
     ndb.DateProperty: convert_ndb_datetime_property,
     ndb.TimeProperty: convert_ndb_time_property,
     ndb.DateTimeProperty: convert_ndb_datetime_property,
-    ndb.KeyProperty: convert_ndb_key_propety,
+    ndb.KeyProperty: convert_ndb_key_property,
     ndb.StructuredProperty: convert_local_structured_property,
     ndb.LocalStructuredProperty: convert_local_structured_property,
     ndb.ComputedProperty: convert_computed_property
@@ -154,7 +154,7 @@ def convert_ndb_property(prop, registry=None):
 
     field = converter_func(prop, registry)
     if not field:
-        raise Exception("Failed to convert NDB propeerty to a GraphQL field %s (%s)" % (prop._code_name, prop))
+        raise Exception("Failed to convert NDB property to a GraphQL field %s (%s)" % (prop._code_name, prop))
 
     if isinstance(field, (list, ConversionResult,)):
         return field
