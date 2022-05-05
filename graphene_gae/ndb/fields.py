@@ -96,9 +96,9 @@ def connection_from_ndb_query(query, args=None, connection_type=None, edge_type=
 
 
 class NdbConnectionField(ConnectionField):
-    def __init__(self, type, transform_edges=None, *args, **kwargs):
+    def __init__(self, type_, transform_edges=None, *args, **kwargs):
         super(NdbConnectionField, self).__init__(
-            type,
+            type_,
             *args,
             keys_only=Boolean(),
             batch_size=Int(),

@@ -16,9 +16,9 @@ class Registry(object):
         return self._registry.get(model)
 
     def get_type_for_model_name(self, model_name):
-        for ndb_model, type in self._registry.items():
+        for ndb_model, type_ in self._registry.items():
             if ndb_model.__name__ == model_name:
-                return type
+                return type_
 
 
 registry = None
