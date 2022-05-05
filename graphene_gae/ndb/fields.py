@@ -61,9 +61,9 @@ def connection_from_ndb_query(query, args=None, connection_type=None, edge_type=
     first = full_args.get('first')
     after = full_args.get('after')
     has_previous_page = bool(after)
-    keys_only = full_args.get('keys_only', False)
-    batch_size = full_args.get('batch_size', 20)
-    page_size = first or full_args.get('page_size', 20)
+    keys_only = full_args.get('keys_only') or False
+    batch_size = full_args.get('batch_size') or 20
+    page_size = first or full_args.get('page_size') or 20
     start_cursor = ndb.Cursor(urlsafe=after) if after else None
 
     ndb_iter = query.iter(produce_cursors=True, start_cursor=start_cursor, batch_size=batch_size, keys_only=keys_only, projection=query.projection)
