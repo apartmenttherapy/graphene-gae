@@ -1,4 +1,4 @@
-import mock
+from unittest import mock
 
 from graphene_gae.ndb.types import NdbObjectType
 from tests.base_test import BaseTest
