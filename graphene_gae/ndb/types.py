@@ -1,4 +1,5 @@
 import inspect
+import six
 from collections import OrderedDict
 
 from google.appengine.ext import ndb
@@ -17,7 +18,7 @@ __author__ = 'ekampf'
 
 def fields_for_ndb_model(ndb_model, registry, only_fields, exclude_fields):
     ndb_fields = OrderedDict()
-    for prop_name, prop in ndb_model._properties.iteritems():
+    for prop_name, prop in six.iteritems(ndb_model._properties):
         name = prop._code_name
 
         is_not_in_only = only_fields and name not in only_fields
