@@ -23,7 +23,7 @@ def generate_edges_page(ndb_iter, page_size, keys_only, edge_type):
     timeouts = 0
     while len(edges) < page_size:
         try:
-            entity = ndb_iter.next()
+            entity = next(ndb_iter)
         except StopIteration:
             break
         except Timeout:
