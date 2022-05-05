@@ -39,9 +39,9 @@ def fields_for_ndb_model(ndb_model, registry, only_fields, exclude_fields):
 
 
 class NdbObjectTypeOptions(ObjectTypeOptions):
-    model = None  # type: Model
+    model = None  # type: ndb.Model
     registry = None  # type: Registry
-    connection = None  # type: Type[Connection]
+    connection = None  # type: Connection
     id = None  # type: str
 
 
@@ -113,8 +113,8 @@ class NdbObjectType(ObjectType):
 
         # Returns True if `root` is a PolyModel subclass and `cls` is in the
         # class hierarchy of `root` which is retrieved with `_class_key`
-        if (hasattr(root, '_class_key') and
-            hasattr(cls._meta.model, '_class_key') and
+        if (hasattr(root, '_class_key') and  # noqa:W504
+            hasattr(cls._meta.model, '_class_key') and  # noqa:W504
             set(cls._meta.model._class_key()).issubset(
                 set(root._class_key()))):
             return True
