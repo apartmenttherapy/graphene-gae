@@ -35,7 +35,7 @@ class GraphQLHandler(webapp2.RequestHandler):
         response = {}
         if result.errors:
             response['errors'] = [self.__format_error(e) for e in result.errors]
-            logging.warn("Request had errors: %s", response)
+            logging.warning("Request had errors: %s", response)
             self._handle_graphql_errors(result.errors)
 
         if result.invalid:
