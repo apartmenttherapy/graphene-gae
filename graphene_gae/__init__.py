@@ -9,7 +9,7 @@ from .ndb.fields import (
 )
 
 __author__ = 'Eran Kampf'
-__version__ = '2.0.0'
+__version__ = '3.0.0a1'
 
 __all__ = [
     NdbObjectType,
