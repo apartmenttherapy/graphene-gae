@@ -7,12 +7,8 @@ python:
 
 # command to install dependencies, e.g. pip install -r requirements.txt --use-mirrors
 install:
-  - wget https://storage.googleapis.com/appengine-sdks/featured/google_appengine_1.9.37.zip -nv
-  - unzip -q google_appengine_1.9.37.zip
-  - export GOOGLE_APPENGINE_HOME=$(pwd)/google_appengine/
-  - export PYTHONPATH=${PYTHONPATH}:${GOOGLE_APPENGINE_HOME}
-  - export PATH=${PATH}:${GOOGLE_APPENGINE_HOME}
   - pip install -U pip
+  - pip install -r requirements.txt
   - pip install coveralls
 
 # command to run tests, e.g. python setup.py test
