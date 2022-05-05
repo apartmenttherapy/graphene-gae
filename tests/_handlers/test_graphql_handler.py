@@ -139,7 +139,7 @@ class TestGraphQLHandler(BaseTest):
             self.assertEqual(response.status_int, 400)
 
             response_dict = json.loads(response.body)
-            self.assertEqual(response_dict["errors"][0]["message"], "Argument \"who\" has invalid value 123.\nExpected type \"String\", found 123.")
+            self.assertEqual(response_dict["errors"][0]["message"], "String cannot represent a non string value: 123")
 
     def test_reports_missing_operation_name(self):
         for method in (self.get, self.post):
@@ -165,9 +165,9 @@ class TestGraphQLHandler(BaseTest):
             self.assertEqual(response.status_int, 400)
 
             expected = {
-                u'errors': [{u'locations': [{u'column': 1, u'line': 1}],
-                            u'message': u'Syntax Error GraphQL (1:1) '
-                                        u'Unexpected Name "syntaxerror"\n\n1: syntaxerror\n   ^\n'}]
+                'errors': [{'locations': [{'column': 1, 'line': 1}],
+                            'message': "Syntax Error: Unexpected Name 'syntaxerror'.",
+                            "path": None}]
             }
             response_dict = json.loads(response.body)
             self.assertEqual(response_dict, expected)

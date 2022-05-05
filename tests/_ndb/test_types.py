@@ -140,7 +140,7 @@ class TestNDBTypes(BaseTest):
         result = schema.execute(query)
 
         self.assertIsNotNone(result.errors)
-        self.assertTrue('Cannot query field "summary"' in result.errors[0].message)
+        self.assertIn("Cannot query field 'summary'", result.errors[0].message)
 
     def testQuery_onlyFields(self):
         Article(headline="h1", summary="s1").put()
@@ -176,7 +176,7 @@ class TestNDBTypes(BaseTest):
         result = schema.execute(query)
 
         self.assertIsNotNone(result.errors)
-        self.assertTrue('Cannot query field "summary"' in result.errors[0].message)
+        self.assertIn("Cannot query field 'summary'", result.errors[0].message)
 
     def testQuery_list(self):
         Article(headline="Test1", summary="1").put()
