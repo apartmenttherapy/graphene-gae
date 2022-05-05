@@ -2,6 +2,7 @@ import sys
 import os
 
 import unittest
+import warnings
 
 from google.appengine.ext import testbed
 from google.appengine.datastore import datastore_stub_util
@@ -19,6 +20,10 @@ class BaseTest(unittest.TestCase):
 
     def setUp(self):
         super(BaseTest, self).setUp()
+
+        # silence "ResourceWarning: unclosed file" warnings.
+        # see https://stackoverflow.com/a/26620811/2284440
+        warnings.filterwarnings("ignore", category=ResourceWarning, message="unclosed file")
 
         root_path = '.'
         application_id = 'graphene-gae-test'
