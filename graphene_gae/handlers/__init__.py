@@ -36,6 +36,19 @@ class GraphQLHandler(webapp2.RequestHandler):
         if result.errors:
             response['errors'] = [self.__format_error(e) for e in result.errors]
             logging.warning("Request had errors: %s", response)
+
+            # log underlying exception (aka 'original_error') in order to make
+            # tracking down errors easier.
+            #
+            # we're doing this here because GraphQLLocatedErrors are no longer
+            # logged in graphql-core v3 (used by Graphene v3).
+            # see https://github.com/graphql-python/graphql-core/issues/36
+            #
+            # TODO: decide most appropriate way to opt-in to this logging. env
+            # var?
+            for err in result.errors:
+                logging.error(err.original_error, exc_info=err.original_error)
+
             self._handle_graphql_errors(result.errors)
 
         if result.data is None:
