@@ -1,6 +1,7 @@
 pip
 setuptools
 wheel
+build
 
 tox
 coverage

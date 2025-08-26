@@ -51,7 +51,7 @@ test-all:
 	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && tox
 
 coverage:
-	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && coverage run --source graphene_gae setup.py test
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && coverage run --source graphene_gae -m unittest discover .
 	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && coverage report -m
 	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && coverage html
 
@@ -68,8 +68,7 @@ release: clean
 	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py bdist_wheel upload
 
 dist: clean
-	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py sdist
-	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py bdist_wheel
+	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python -m build
 	ls -l dist
 
 install: clean
