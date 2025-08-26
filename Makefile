@@ -63,9 +63,9 @@ docs:
 	$(MAKE) -C docs html
 	open docs/_build/html/index.html
 
-release: clean
-	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py sdist upload
-	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py bdist_wheel upload
+# release: clean
+# 	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py sdist upload
+# 	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python setup.py bdist_wheel upload
 
 dist: clean
 	PYTHONPATH=$PYTHONPATH:.venv:. ; . .venv/bin/activate && python -m build
