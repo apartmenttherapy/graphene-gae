@@ -164,13 +164,27 @@ class TestGraphQLHandler(BaseTest):
 
             self.assertEqual(response.status_int, 400)
 
-            expected = {
-                'errors': [{'locations': [{'column': 1, 'line': 1}],
-                            'message': "Syntax Error: Unexpected Name 'syntaxerror'.",
-                            "path": None}]
-            }
+            # "path" was removed in graphql-core 3.2
+            # https://github.com/graphql-python/graphql-core/commit/09ff14f68bdce1e9cd71decc871fd38274b01971
+            #
+            # expected = {
+            #     'errors': [{'locations': [{'column': 1, 'line': 1}],
+            #                 'message': "Syntax Error: Unexpected Name 'syntaxerror'.",
+            #                 "path": None}]
+            # }
             response_dict = json.loads(response.body)
-            self.assertEqual(response_dict, expected)
+            self.assertEqual(
+                response_dict["errors"][0]["locations"],
+                [{'column': 1, 'line': 1}],
+            )
+            self.assertEqual(
+                response_dict["errors"][0]["message"],
+                "Syntax Error: Unexpected Name 'syntaxerror'.",
+            )
+            # self.assertEqual(
+            #     response_dict["errors"][0]["path"],
+            #     None,
+            # )
 
     def test_handles_poorly_formed_variables(self):
         for method in (self.get, self.post):

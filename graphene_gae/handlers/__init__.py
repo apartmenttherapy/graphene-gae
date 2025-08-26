@@ -3,7 +3,14 @@ import json
 import webapp2
 import six
 
-from graphql import GraphQLError, format_error as format_graphql_error
+from graphql import GraphQLError
+
+try:
+    # graphql-core 3.1
+    from graphql import format_error as format_graphql_error
+except ImportError:
+    # graphql-core 3.2+
+    from graphql.error.graphql_error import format_error as format_graphql_error
 
 __author__ = 'ekampf'
 
