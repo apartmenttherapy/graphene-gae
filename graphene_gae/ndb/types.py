@@ -120,7 +120,7 @@ class NdbObjectType(ObjectType):
                 set(root._class_key()))):
             return True
 
-        return type(root) == cls._meta.model
+        return type(root) == cls._meta.model  # noqa E721
 
     @classmethod
     def get_node(cls, info, urlsafe_key):
