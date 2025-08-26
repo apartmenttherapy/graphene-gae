@@ -7,7 +7,7 @@ coverage
 flake8
 Sphinx
 
-PyYAML==5.4
+PyYAML>=5.4
 graphene>=3.0
 appengine-python-standard>=1.0
 six>=1.10.0
