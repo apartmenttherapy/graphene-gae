@@ -53,3 +53,5 @@ results.xml
 # Virtualenv
 .venv
 
+# IDEs
+.vscode
