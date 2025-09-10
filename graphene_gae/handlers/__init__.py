@@ -14,6 +14,8 @@ except ImportError:
 
 __author__ = 'ekampf'
 
+logger = logging.getLogger(__name__)
+
 
 class GraphQLHandler(webapp2.RequestHandler):
     def get(self):
@@ -42,7 +44,7 @@ class GraphQLHandler(webapp2.RequestHandler):
         response = {}
         if result.errors:
             response['errors'] = [self.__format_error(e) for e in result.errors]
-            logging.warning("Request had errors: %s", response)
+            logger.warning("Request had errors: %s", response)
 
             # log underlying exception (aka 'original_error') in order to make
             # tracking down errors easier.
@@ -54,19 +56,19 @@ class GraphQLHandler(webapp2.RequestHandler):
             # TODO: decide most appropriate way to opt-in to this logging. env
             # var?
             for err in result.errors:
-                logging.error(err.original_error, exc_info=err.original_error)
+                logger.error(err.original_error, exc_info=err.original_error)
 
             self._handle_graphql_errors(result.errors)
 
         if result.data is None:
-            logging.error("GraphQL request is invalid: %s", response)
+            logger.error("GraphQL request is invalid: %s", response)
             return self.failed_response(400, response, pretty=pretty)
 
         response['data'] = result.data
         return self.successful_response(response, pretty=pretty)
 
     def handle_exception(self, exception, debug):
-        logging.exception(exception)
+        logger.exception(exception)
 
         status_code = 500
         if isinstance(exception, webapp2.HTTPException):
